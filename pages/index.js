@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import Head from "next/head";
 import Image from 'next/image';
 import localFont from "next/font/local";
 import styles from "@/styles/Home.module.css";
-import Link from "next/link";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,32 +43,9 @@ export default function Home() {
             </li>
             <li>Save and see your changes instantly.</li>
           </ol>
-
-          <div className={styles.ctas}>
-            <Link href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
-              <Image
-                className={styles.logo}
-                src="/vercel.svg"
-                alt="Vercel logomark"
-                width={20}
-                height={20}
-              />
-              Deploy now
-            </Link>
-            <Link href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
-              Read our docs
-            </Link>
-          </div>
         </main>
         <footer className={styles.footer}>
           <Link href="/products">
-            <Image
-              aria-hidden
-              src="/globe.svg"
-              alt="Globe icon"
-              width={16}
-              height={16}
-            />
             Go to practice project →
           </Link>
         </footer>
