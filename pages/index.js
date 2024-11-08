@@ -44,12 +44,7 @@ export default function Home() {
           </ol>
 
           <div className={styles.ctas}>
-            <Link
-              className={styles.primary}
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
               <Image
                 className={styles.logo}
                 src="/vercel.svg"
@@ -59,12 +54,7 @@ export default function Home() {
               />
               Deploy now
             </Link>
-            <Link
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.secondary}
-            >
+            <Link href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
               Read our docs
             </Link>
           </div>
