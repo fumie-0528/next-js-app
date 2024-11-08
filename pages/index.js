@@ -44,7 +44,7 @@ export default function Home() {
           </ol>
 
           <div className={styles.ctas}>
-            <a
+            <Link
               className={styles.primary}
               href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
               target="_blank"
@@ -58,15 +58,15 @@ export default function Home() {
                 height={20}
               />
               Deploy now
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.secondary}
             >
               Read our docs
-            </a>
+            </Link>
           </div>
         </main>
         <footer className={styles.footer}>
