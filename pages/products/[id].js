@@ -4,34 +4,39 @@ import Link from "next/link";
 
 export async function getStaticProps({ params }) {
     try {
-        const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${params.id}.json`);
-        if (!req.ok) {
-            throw new Error("Failed to fetch data");
-        }
-        const data = await req.json();
+       const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${params.id}.json`);
+       if (!req.ok) {
+          throw new Error(`Failed to fetch data for ID ${params.id}`);
+       }
+       const data = await req.json();
  
-        return {
-            props: { product: data },
-        };
+       return {
+         props: { product: data },
+       };
     } catch (error) {
-        console.error(error);
-        return { notFound: true };
+       console.error(error);
+       return {
+          notFound: true,
+       };
     }
  }
-
-
+ 
  export async function getStaticPaths() {
-    const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products.json`);
-    const data = await req.json();
-    const paths = data.map(product => ({
-        params: { id: product.id.toString() },
-    }));
-
-    return {
-        paths,
-        fallback: 'blocking',
-    };
-}
+     const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products.json`);
+     const data = await req.json();
+     const paths = data.map(product => {
+         return {
+             params: {
+                 id: product,
+             },
+         };
+     });
+ 
+     return {
+         paths,
+         fallback: false,
+     }
+ }
 
 
 const Product = ({ product }) => {
