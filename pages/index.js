@@ -69,7 +69,7 @@ export default function Home() {
           </div>
         </main>
         <footer className={styles.footer}>
-          <a href="/products">
+          <Link href="/products">
             <Image
               aria-hidden
               src="/globe.svg"
@@ -78,7 +78,7 @@ export default function Home() {
               height={16}
             />
             Go to practice project →
-          </a>
+          </Link>
         </footer>
       </div>
     </>
