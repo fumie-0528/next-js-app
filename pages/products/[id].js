@@ -3,55 +3,53 @@ import styles from "../../styles/Home.module.css";
 import Link from "next/link";
 
 export async function getStaticProps({ params }) {
-    try {
-       const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${params.id}.json`);
-       if (!req.ok) {
-          throw new Error(`Failed to fetch data for ID ${params.id}`);
-       }
-       const data = await req.json();
- 
-       return {
-         props: { product: data },
-       };
-    } catch (error) {
-       console.error(error);
-       return {
-          notFound: true,
-       };
+  try {
+    const res = await fetch(`https://api.example.com/products/${params.id}`);
+    if (!res.ok) {
+      return { notFound: true };
     }
- }
- 
- export async function getStaticPaths() {
-     const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products.json`);
-     const data = await req.json();
-     const paths = data.map(product => {
-         return {
-             params: {
-                 id: product,
-             },
-         };
-     });
- 
-     return {
-         paths,
-         fallback: false,
-     }
- }
+    const product = await res.json(); // Rename to product for consistency
+    return { props: { product } }; // Pass product as prop
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    return { notFound: true };
+  }
+}
 
+export async function getStaticPaths() {
+  const res = await fetch("https://api.example.com/products");
+  const products = await res.json();
+
+  const paths = products.map((product) => ({
+    params: { id: product.id.toString() },
+  }));
+
+  return { paths, fallback: "blocking" };
+}
 
 const Product = ({ product }) => {
-    const router = useRouter();
-    const { id } = router.query;
-    return (
-    <div className={styles.container}>
-        <main className={styles.products}>
-            <h1>My favorite {id} is {product.name} </h1>
+  const router = useRouter();
 
-            <img src={product.image} width={600} height={400}/>
-            <Link href="/products">Return to Product page</Link>
-        </main>
+  // Optional: Handle loading state if fallback is set to 'true'
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
+  return (
+    <div className={styles.container}>
+      <main className={styles.products}>
+        <h1>
+          My favorite {product.id} is {product.name}
+        </h1>
+        <img src={product.image} width={600} height={400} alt={product.name} />
+        <Link href="/products">Return to Product page</Link>
+      </main>
     </div>
-    )
+  );
 };
 
 export default Product;
